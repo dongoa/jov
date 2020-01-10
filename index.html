@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>visFigure</title>
+    <link rel="stylesheet" href="js-out/jquery-ui.css">
+    <script src="js-out/jquery.js" type="text/javascript"></script>
+    <script src="js-out/jquery-ui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="js-out/jquery-ui.structure.css">
+    <link rel="stylesheet" href="js-out/jquery-ui.theme.css">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="js/main.js"></script>
+
+</head>
+<body>
+<div id="sys-loading" class=""><div class="spinner">
+    <div class="loader-inner line-scale-pulse-out-rapid">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div></div>
+<!--<div class="header"><div>VisFigsCollection</div></div>-->
+<div class="container">
+    <div class="item1">
+        <div class="item1-border">
+        <div class="venues-container">
+            <div class="venues-head">Venues:
+
+            </div>
+            <div class="ven_body_container"><div class="venues-body"></div></div>
+        </div>
+        <div class="author-container">
+            <div class="author-head">Authors:
+                <div class="tag_occurrence toggle-container">min<div id="AAA2" class="button dec small">-</div><span id="AAAnum">1</span><div id="AAA" class="button inc small">+</div></div>
+            </div>
+            <div class="aut_body_container"><div class="author-body"></div></div>
+        </div>
+        <div class="keyword-container">
+            <div class="keyword-head">Citation:
+                <div class="tag_occurrence toggle-container">min<div id="BBB2" class="button dec small">-</div><span id="BBBnum">1</span><div id="BBB" class="button inc small">+</div></div>
+            </div>
+            <div class="key_body_container"><div class="keyword-body"></div></div>
+        </div>
+            <div class="Fig-container">
+                <div class="Fig-head">Num. of Figures:
+
+                </div>
+                <div class="Fig_body_container"><div class="Fig-body"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="item2">
+        <div class="item2-border">
+        <svg class="svg"></svg>
+        </div>
+    </div>
+    <div class="item3">
+        <span class="gN">Groups: <select id="selectN" name="" placeholder="Numebrs">
+ <option value="3" selected disabled style="display: none">3</option>
+<option value="1">1</option>
+<option value="3">3</option>
+<option value="5">5</option>
+<option value="10">10</option>
+</select> </span>
+        <span class="gV">Venues</span> <span class="gA">Author</span> <span class="gK">Citation</span> <span class="gF">Fig. Num.</span></div>
+</div>
+<script>
+    function reloading(){
+        document.onreadystatechange = subSomething;
+        function subSomething() {
+            if (document.readyState == "complete") {
+                $('#sys-loading').delay(1000).hide(0);
+                $('.spinner').delay(1000).fadeOut('slow');
+            }
+        }
+    }
+    reloading();
+    var selet=1;
+</script>
+
+
+<script src="newdata/venues2p.js"></script>
+<script src="newdata/ColorData.js"></script>
+<script src="js-out/d3.min.js"></script>
+<script src="js-out/d3.tip.js"></script>
+<script type="module" src="js/main.js"></script>
+<!--<script src="js-out/jquery-3.3.1.min.js"></script>-->
+<script>
+d3.dsv(",", "./newdata/cv-paperlist.csv", function(d) {
+  return d;
+}).then(function(data) {
+//   console.log(data);
+//   var out={};
+//     for(var i in data){
+//         if(i!="columns"){
+//             data['Year'] = data['Publication Year']
+//             // var authors_string = data[i]["Authors"].split(';');
+//             // var strings = authors_string.map((i)=>{ return i.trim() });
+//             // strings.forEach(element => {
+//             //     if(out[element]){
+//             //         out[element].push(Number(i));
+//             //     }
+//             //     else {
+//             //         out[element]=[Number(i)];
+//             //     }
+//             // });
+//             // console.log(strings);
+//             var doi = data[i]["DOI"].replace('/','');
+//             out[doi]=Number(i);
+//         }
+//         // out[data[i]["Venues"]].push( Number(i) );
+//         // console.log(data[i]["Venues"]);
+//     }
+//     console.log(JSON.stringify(data));
+
+
+
+
+});
+var out={};
+console.log(PAPER);
+for(var i in PAPER){
+    console.log(i);
+    out[i]=PAPER[i]["Article Citation Count"];
+}
+var  out2={"More than 1000":[],
+"50-100":[],
+"100-500":[],
+"Less than 50":[]
+}
+console.log(out);
+for(var i in out){
+    if(out[i]<50) out2["Less than 50"].push(i);
+    else if(out[i]<100) out2["50-100"].push(i);
+    else if (out[i]<500) out2["100-500"].push(i);
+    else out2["More than 1000"].push(i);
+}
+
+console.log(JSON.stringify(out2));
+</script>
+</body>
+</html>
